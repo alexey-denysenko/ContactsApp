@@ -20,7 +20,7 @@ public final class ContactsNetworkClient {
         this.contactsService = contactsService;
     }
 
-    void loadContacts(Callback<ContactsResponseDto> callback) {
+    public void loadContacts(Callback<ContactsResponseDto> callback) {
         RetrofitCallback<ContactsResponseDto> retrofitCallback = RetrofitCallback.wrap(callback);
         contactsService.getContacts("/", Collections.singletonList("contacts.json")).enqueue(retrofitCallback);
     }
