@@ -11,13 +11,13 @@ public class ContactsResponseDto {
 
     @SerializedName("groups")
     @Expose
-    private List<Group> groups = new ArrayList<Group>();
+    private List<GroupDto> groups = new ArrayList<GroupDto>();
 
-    public List<Group> getGroups() {
+    public List<GroupDto> getGroups() {
         return groups;
     }
 
-    public void setGroups(List<Group> groups) {
+    public void setGroups(List<GroupDto> groups) {
         this.groups = groups;
     }
 

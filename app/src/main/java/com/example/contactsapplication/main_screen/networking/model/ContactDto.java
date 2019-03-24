@@ -3,7 +3,7 @@ package com.example.contactsapplication.main_screen.networking.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Contact {
+public class ContactDto {
 
     @Expose
     @SerializedName("firstName")

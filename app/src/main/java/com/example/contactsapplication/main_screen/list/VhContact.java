@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.contactsapplication.R;
+import com.example.contactsapplication.common.BaseViewHolder;
 import com.example.contactsapplication.main_screen.list.model.Contact;
 
 import java.util.HashMap;

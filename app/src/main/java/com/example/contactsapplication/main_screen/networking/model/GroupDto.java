@@ -1,13 +1,14 @@
 
 package com.example.contactsapplication.main_screen.networking.model;
 
+import com.example.contactsapplication.main_screen.list.model.Contact;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group {
+public class GroupDto {
 
     @SerializedName("groupName")
     @Expose
@@ -15,5 +16,5 @@ public class Group {
 
     @SerializedName("people")
     @Expose
-    private List<Object> people = new ArrayList<Object>();
+    private List<Contact> people = new ArrayList<>();
 }

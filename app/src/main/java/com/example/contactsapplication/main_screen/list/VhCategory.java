@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.contactsapplication.R;
+import com.example.contactsapplication.common.BaseViewHolder;
 import com.example.contactsapplication.main_screen.list.model.Category;
 
 public final class VhCategory extends BaseViewHolder<Category> {
