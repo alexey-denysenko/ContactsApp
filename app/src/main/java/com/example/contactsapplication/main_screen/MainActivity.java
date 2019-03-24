@@ -10,7 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.contactsapplication.R;
 import com.example.contactsapplication.main_screen.list.ContactsAdapter;
@@ -50,6 +53,7 @@ public final class MainActivity extends DaggerAppCompatActivity implements OnCat
         progressBar = findViewById(R.id.progress);
         searchField = findViewById(R.id.search_field);
         searchField.addTextChangedListener(textChangeListener);
+        searchField.setOnEditorActionListener(this::onActionSearch);
 
         initRecyclerView();
         subscribeForUpdates();
@@ -79,6 +83,13 @@ public final class MainActivity extends DaggerAppCompatActivity implements OnCat
         adapter.setListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private boolean onActionSearch(TextView textView, int actionId, KeyEvent ignored) {
+        if(actionId == EditorInfo.IME_ACTION_SEARCH) {
+            viewModel.search(textView.getText().toString());
+        }
+        return false;
     }
 
     @Override

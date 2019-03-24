@@ -11,6 +11,8 @@
         android:id="@+id/search_field"
         android:layout_width="match_parent"
         android:padding="8dp"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:background="@drawable/search_background"
         android:layout_height="wrap_content"
         android:hint="@string/find_friends"/>
