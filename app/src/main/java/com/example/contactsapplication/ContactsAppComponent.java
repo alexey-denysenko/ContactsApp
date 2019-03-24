@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 
 import com.example.contactsapplication.main_screen.MainModule;
+import com.example.contactsapplication.main_screen.MainVmModule;
 
 import javax.inject.Singleton;
 
@@ -15,8 +16,12 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component(modules = {
         AndroidSupportInjectionModule.class,
+
         ContactsAppModule.class,
-        MainModule.class
+        ContactsAppNetworkingModule.class,
+
+        MainModule.class,
+        MainVmModule.class
 })
 public interface ContactsAppComponent extends AndroidInjector<ContactsApplication> {
 
@@ -30,3 +35,4 @@ public interface ContactsAppComponent extends AndroidInjector<ContactsApplicatio
         ContactsAppComponent build();
     }
 }
+

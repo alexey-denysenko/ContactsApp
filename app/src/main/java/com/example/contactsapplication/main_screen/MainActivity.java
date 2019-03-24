@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -23,17 +24,14 @@ public class MainActivity extends DaggerAppCompatActivity {
     ViewModelProvider.Factory factory;
 
     private MainActivityViewModel viewModel;
-    private RecyclerView recyclerView;
     private final ContactsAdapter adapter = new ContactsAdapter();
+    private RecyclerView recyclerView;
+    private ContentLoadingProgressBar progressBar;
 
     @NonNull
     private final Observer<List<Object>> sectionsObserver = adapter::submitList;
     @NonNull
     private final Observer<Boolean> loadingObserver = this::changeLoadingState;
-
-    private void changeLoadingState(Boolean isLoading) {
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +40,9 @@ public class MainActivity extends DaggerAppCompatActivity {
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel.class);
 
         recyclerView = findViewById(R.id.recycler_view);
+        progressBar = findViewById(R.id.progress);
         initRecyclerView();
         subscribeForUpdates();
-    }
-
-    private void subscribeForUpdates() {
-        viewModel.getAdapterSections().observe(this, sectionsObserver);
-        viewModel.getIsLoading().observe(this, loadingObserver);
     }
 
     @Override
@@ -56,6 +50,19 @@ public class MainActivity extends DaggerAppCompatActivity {
         super.onDestroy();
         viewModel.getAdapterSections().removeObserver(sectionsObserver);
         viewModel.getIsLoading().removeObserver(loadingObserver);
+    }
+
+    private void subscribeForUpdates() {
+        viewModel.getAdapterSections().observe(this, sectionsObserver);
+        viewModel.getIsLoading().observe(this, loadingObserver);
+    }
+
+    private void changeLoadingState(Boolean isLoading) {
+        if(isLoading) {
+            progressBar.show();
+        } else {
+            progressBar.hide();
+        }
     }
 
     private void initRecyclerView() {

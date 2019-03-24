@@ -7,17 +7,17 @@ public class ContactDto {
 
     @Expose
     @SerializedName("firstName")
-    String firstName;
+    public String firstName;
 
     @Expose
     @SerializedName("lastName")
-    String lastName;
+    public String lastName;
 
     @Expose
     @SerializedName("statusIcon")
-    String statusIcon;
+    public String statusIcon;
 
     @Expose
     @SerializedName("statusMessage")
-    String statusMessage;
+    public String statusMessage;
 }

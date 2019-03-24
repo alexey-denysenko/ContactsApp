@@ -10,6 +10,6 @@ import retrofit2.http.Query;
 
 public interface ContactsService {
 
-    @GET("/s/F5WttwCODi1z3oo/download?path={path}&files={files}")
+    @GET("s/F5WttwCODi1z3oo/download")
     Call<ContactsResponseDto> getContacts(@Query("path") String path, @Query("files") List<String> files);
 }

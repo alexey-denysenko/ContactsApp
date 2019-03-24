@@ -11,15 +11,15 @@ public abstract class Category {
    @NonNull
    public abstract String getName();
 
-   static Builder builder() {
+   public static Builder builder() {
       return new AutoValue_Category.Builder();
    }
 
    @SuppressWarnings("NullableProblems")
    @AutoValue.Builder
-   abstract static class Builder {
-      abstract Builder setCollapsed(boolean value);
-      abstract Builder setName(@NonNull final String name);
-      abstract Category build();
+   public abstract static class Builder {
+      public abstract Builder setCollapsed(boolean value);
+      public abstract Builder setName(@NonNull final String name);
+      public abstract Category build();
    }
 }

@@ -7,7 +7,7 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class Contact {
 
-    static Contact create(@NonNull final String fullName,
+    public static Contact create(@NonNull final String fullName,
                           @NonNull final String status,
                           @NonNull final String statusMessage) {
         return new AutoValue_Contact(fullName, status, statusMessage);

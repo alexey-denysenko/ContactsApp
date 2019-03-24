@@ -9,21 +9,21 @@ import com.example.contactsapplication.R;
 import com.example.contactsapplication.common.BaseViewHolder;
 import com.example.contactsapplication.main_screen.list.model.Category;
 
-public final class VhCategory extends BaseViewHolder<Category> {
+final class VhCategory extends BaseViewHolder<Category> {
 
     @NonNull
     private final TextView name;
     @NonNull
     private final ImageView arrow;
 
-    public VhCategory(@NonNull final View itemView) {
+    VhCategory(@NonNull final View itemView) {
         super(itemView);
         name = itemView.findViewById(R.id.category_text);
         arrow = itemView.findViewById(R.id.category_arrow);
     }
 
     @Override
-    void bind(@NonNull final Category data) {
+    public void bind(@NonNull final Category data) {
         if(data.isCollapsed()) {
             arrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
         } else {

@@ -12,7 +12,7 @@ import com.example.contactsapplication.main_screen.list.model.Contact;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class VhContact extends BaseViewHolder<Contact> {
+final class VhContact extends BaseViewHolder<Contact> {
 
     private static final Map<String, Integer> STATUS_MAP = new HashMap<String, Integer>() {{
         put("away", R.drawable.contacts_list_status_away);
@@ -32,7 +32,7 @@ public final class VhContact extends BaseViewHolder<Contact> {
     @NonNull
     private final ImageView avatar;
 
-    public VhContact(@NonNull final View itemView) {
+    VhContact(@NonNull final View itemView) {
         super(itemView);
         statusIcon = itemView.findViewById(R.id.contact_status_icon);
         fullName = itemView.findViewById(R.id.contact_name);
@@ -41,7 +41,7 @@ public final class VhContact extends BaseViewHolder<Contact> {
     }
 
     @Override
-    void bind(@NonNull final Contact data) {
+    public void bind(@NonNull final Contact data) {
         statusIcon.setImageResource(STATUS_MAP.get(data.getStatus()));
         fullName.setText(data.getFullName());
         status.setText(data.getStatus());
