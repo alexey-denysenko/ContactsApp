@@ -8,9 +8,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.example.contactsapplication.R;
 import com.example.contactsapplication.main_screen.list.ContactsAdapter;
+import com.example.contactsapplication.main_screen.list.OnCategoryClickListener;
 
 import java.util.List;
 
@@ -18,15 +22,16 @@ import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends DaggerAppCompatActivity {
+public final class MainActivity extends DaggerAppCompatActivity implements OnCategoryClickListener {
 
     @Inject
     ViewModelProvider.Factory factory;
 
     private MainActivityViewModel viewModel;
     private final ContactsAdapter adapter = new ContactsAdapter();
-    private RecyclerView recyclerView;
     private ContentLoadingProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private EditText searchField;
 
     @NonNull
     private final Observer<List<Object>> sectionsObserver = adapter::submitList;
@@ -42,6 +47,8 @@ public class MainActivity extends DaggerAppCompatActivity {
         getSupportActionBar().hide();
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progress);
+        searchField = findViewById(R.id.search_field);
+        searchField.addTextChangedListener(textChangeListener);
 
         initRecyclerView();
         subscribeForUpdates();
@@ -68,7 +75,30 @@ public class MainActivity extends DaggerAppCompatActivity {
     }
 
     private void initRecyclerView() {
+        adapter.setListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    @Override
+    public void onCategoryClicked(int position) {
+        viewModel.collapseCategory(position);
+    }
+
+    private final TextWatcher textChangeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            //no-op
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            //no-op
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            viewModel.search(editable.toString());
+        }
+    };
 }

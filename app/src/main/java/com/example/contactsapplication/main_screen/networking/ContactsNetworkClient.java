@@ -2,8 +2,8 @@ package com.example.contactsapplication.main_screen.networking;
 
 import android.support.annotation.NonNull;
 
-import com.example.contactsapplication.common.Callback;
-import com.example.contactsapplication.common.RetrofitCallback;
+import com.example.contactsapplication.common.networking.Callback;
+import com.example.contactsapplication.common.networking.RetrofitCallback;
 import com.example.contactsapplication.main_screen.networking.model.ContactsResponseDto;
 
 import java.util.Collections;

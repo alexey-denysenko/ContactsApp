@@ -11,10 +11,12 @@ import com.example.contactsapplication.common.BaseViewHolder;
 import com.example.contactsapplication.main_screen.list.model.Category;
 import com.example.contactsapplication.main_screen.list.model.Contact;
 
-public class ContactsAdapter extends BaseAdapter<Object, BaseViewHolder> {
+public final class ContactsAdapter extends BaseAdapter<Object, BaseViewHolder> {
 
     private final int CONTACT_TYPE = R.layout.item_contact;
     private final int CATEGORY_TYPE = R.layout.item_category;
+
+    private OnCategoryClickListener listener;
 
     public ContactsAdapter() {
         super(new ContactsDiffCallback());
@@ -35,7 +37,11 @@ public class ContactsAdapter extends BaseAdapter<Object, BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        if(holder instanceof VhCategory) {
+            ((VhCategory) holder).setListener(listener);
+        } else {
+            holder.bind(getItem(position));
+        }
     }
 
     @Override
@@ -48,5 +54,9 @@ public class ContactsAdapter extends BaseAdapter<Object, BaseViewHolder> {
         } else {
             throw new IllegalArgumentException(String.format("Unknown item: %s.", item));
         }
+    }
+
+    public void setListener(OnCategoryClickListener listener) {
+        this.listener = listener;
     }
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.contactsapplication.R;
-import com.example.contactsapplication.common.ServiceFactory;
+import com.example.contactsapplication.common.networking.ServiceFactory;
 
 import dagger.Module;
 import dagger.Provides;

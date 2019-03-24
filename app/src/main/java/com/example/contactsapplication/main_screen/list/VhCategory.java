@@ -16,10 +16,13 @@ final class VhCategory extends BaseViewHolder<Category> {
     @NonNull
     private final ImageView arrow;
 
+    private OnCategoryClickListener listener;
+
     VhCategory(@NonNull final View itemView) {
         super(itemView);
         name = itemView.findViewById(R.id.category_text);
         arrow = itemView.findViewById(R.id.category_arrow);
+        itemView.setOnClickListener(view -> listener.onCategoryClicked(getAdapterPosition()));
     }
 
     @Override
@@ -30,5 +33,9 @@ final class VhCategory extends BaseViewHolder<Category> {
             arrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
         }
         name.setText(data.getName());
+    }
+
+    public void setListener(@NonNull final OnCategoryClickListener listener) {
+        this.listener = listener;
     }
 }

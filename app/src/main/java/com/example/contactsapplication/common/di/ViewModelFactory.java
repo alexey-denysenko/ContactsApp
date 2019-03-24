@@ -1,4 +1,4 @@
-package com.example.contactsapplication.common;
+package com.example.contactsapplication.common.di;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

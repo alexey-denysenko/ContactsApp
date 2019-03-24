@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ContactsMapper {
+final class ContactsMapper {
 
     static List<Object> map(ContactsResponseDto data) {
         if(data == null || data.groups.isEmpty()) {

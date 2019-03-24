@@ -5,19 +5,10 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.example.contactsapplication.common.Interceptors;
-import com.example.contactsapplication.common.ViewModelFactory;
-
-import java.util.Collections;
-import java.util.Set;
+import com.example.contactsapplication.common.di.ViewModelFactory;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
-import dagger.multibindings.ElementsIntoSet;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 @Module
 public interface ContactsAppModule {

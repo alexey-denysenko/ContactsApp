@@ -5,7 +5,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
 import timber.log.Timber;
 
-public class ContactsApplication extends DaggerApplication {
+public final class ContactsApplication extends DaggerApplication {
 
     @Override
     public void onCreate() {

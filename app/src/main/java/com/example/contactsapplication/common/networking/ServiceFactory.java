@@ -1,4 +1,4 @@
-package com.example.contactsapplication.common;
+package com.example.contactsapplication.common.networking;
 
 import android.support.annotation.NonNull;
 

@@ -1,9 +1,11 @@
-package com.example.contactsapplication.common;
+package com.example.contactsapplication.common.livedata;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+
+import android.arch.lifecycle.CombineLatestObserver;
 
 /**
  * Factory of useful {@link LiveData} implementations.
@@ -123,4 +125,25 @@ public final class LiveDataFactory {
             super.setValue(value);
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T1, T2, R> MutableLiveData<R> combineLatest(@NonNull final LiveData<T1> ld1,
+                                                        @NonNull final LiveData<T2> ld2,
+                                                        @NonNull final Combiner2<T1, T2, R> combiner) {
+        return combineLatest(
+                new LiveData[]{ld1, ld2},
+                (values, result) -> combiner.apply((T1) values[0], (T2) values[1], result)
+        );
+    }
+
+    private static <R> MutableLiveData<R> combineLatest(@NonNull final LiveData[] sources,
+                                                @NonNull final CombinerN<R> combiner) {
+        final MediatorLiveData<R> result = new MediatorLiveData<>();
+
+        for (final LiveData source : sources) {
+            result.addSource(source, new CombineLatestObserver<>(sources, combiner, result));
+        }
+        return result;
+    }
+
 }

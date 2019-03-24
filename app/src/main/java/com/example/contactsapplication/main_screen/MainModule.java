@@ -1,6 +1,6 @@
 package com.example.contactsapplication.main_screen;
 
-import com.example.contactsapplication.common.ActivityScope;
+import com.example.contactsapplication.common.di.ActivityScope;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

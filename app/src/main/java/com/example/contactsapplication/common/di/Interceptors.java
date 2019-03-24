@@ -1,16 +1,16 @@
-package com.example.contactsapplication.common;
+package com.example.contactsapplication.common.di;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.inject.Scope;
+import javax.inject.Qualifier;
 
 /**
- * Activity scope.
+ * Qualifier for {@code OkHttp} interceptors.
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Scope
-public @interface ActivityScope {
+@Qualifier
+public @interface Interceptors {
 }

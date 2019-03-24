@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.example.contactsapplication.main_screen.list.model.Category;
 import com.example.contactsapplication.main_screen.list.model.Contact;
 
-public class ContactsDiffCallback extends DiffUtil.ItemCallback<Object> {
+final class ContactsDiffCallback extends DiffUtil.ItemCallback<Object> {
 
     @Override
     public boolean areItemsTheSame(@NonNull Object oldItem, @NonNull Object newItem) {
