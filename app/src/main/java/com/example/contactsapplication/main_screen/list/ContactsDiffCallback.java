@@ -29,4 +29,9 @@ final class ContactsDiffCallback extends DiffUtil.ItemCallback<Object> {
     public boolean areContentsTheSame(@NonNull Object oldItem, @NonNull Object newItem) {
         return oldItem.equals(newItem);
     }
+
+    @Override
+    public Object getChangePayload(@NonNull Object oldItem, @NonNull Object newItem) {
+        return "";
+    }
 }

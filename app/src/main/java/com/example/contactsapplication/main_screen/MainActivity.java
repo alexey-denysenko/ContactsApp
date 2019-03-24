@@ -15,6 +15,7 @@ import android.widget.EditText;
 import com.example.contactsapplication.R;
 import com.example.contactsapplication.main_screen.list.ContactsAdapter;
 import com.example.contactsapplication.main_screen.list.OnCategoryClickListener;
+import com.example.contactsapplication.main_screen.list.model.Category;
 
 import java.util.List;
 
@@ -81,8 +82,8 @@ public final class MainActivity extends DaggerAppCompatActivity implements OnCat
     }
 
     @Override
-    public void onCategoryClicked(int position) {
-        viewModel.collapseCategory(position);
+    public void onCategoryClicked(Category category) {
+        viewModel.collapseCategory(category);
     }
 
     private final TextWatcher textChangeListener = new TextWatcher() {

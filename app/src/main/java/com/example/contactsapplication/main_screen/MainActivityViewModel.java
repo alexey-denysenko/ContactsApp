@@ -14,7 +14,11 @@ import com.example.contactsapplication.main_screen.networking.ContactsNetworkCli
 import com.example.contactsapplication.main_screen.networking.model.ContactsResponseDto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -26,13 +30,14 @@ import static java.lang.Boolean.TRUE;
 final class MainActivityViewModel extends ViewModel {
 
     @NonNull
-    private final MutableLiveData<List<Object>> callbackData = new MutableLiveData<>();
+    private final MutableLiveData<Map<Category, List<Contact>>> callbackData = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<String> searchQuery = LiveDataFactory.newDistinctMutableLiveData("");
     @NonNull
     private final MutableLiveData<Boolean> isLoading = LiveDataFactory.newDistinctMutableLiveData(FALSE);
     @NonNull
     private MutableLiveData<List<Object>> adapterSections;
+    private Set<String> collapsedCategories = new HashSet<>();
 
     @Inject
     MainActivityViewModel(@NonNull ContactsNetworkClient networkClient) {
@@ -55,38 +60,31 @@ final class MainActivityViewModel extends ViewModel {
         searchQuery.setValue(query);
     }
 
-    void collapseCategory(int position) {
+    void collapseCategory(Category category) {
 
-        List<Object> data = callbackData.getValue();
-        List<Object> dataToRemove = new ArrayList<>();
-        for(int i = position + 1; i < data.size(); i++) {
-            final Object item = data.get(i);
-            if(item instanceof Category) {
-                break;
-            }
-            dataToRemove.add(item);
+        String name = category.getName();
+        if(collapsedCategories.contains(name)) {
+            collapsedCategories.remove(name);
+        } else {
+            collapsedCategories.add(name);
         }
 
-        data.remove(dataToRemove);
-        List<Object> result = new ArrayList<>(data);
-
+        List<Object> result = ContactsMapper.map(Objects.requireNonNull(callbackData.getValue()), collapsedCategories);
         adapterSections.setValue(result);
     }
 
-    private void filter(List<Object> callbackData, String query, MutableLiveData<List<Object>> resultLiveData) {
+    private void filter(Map<Category, List<Contact>> callbackData, String query, MutableLiveData<List<Object>> resultLiveData) {
         if (TextUtils.isEmpty(query)) {
-            resultLiveData.setValue(callbackData);
+            resultLiveData.setValue(ContactsMapper.map(callbackData));
         } else {
             List<Object> result = new ArrayList<>();
-            for (Object object : callbackData) {
-                if (object instanceof Contact) {
-                    if (((Contact) object).getFullName().contains(query)) {
-                        result.add(object);
+            for (Map.Entry<Category, List<Contact>> entry : callbackData.entrySet()) {
+                result.add(entry.getKey());
+                List<Contact> contacts = entry.getValue();
+                for (Contact contact : contacts) {
+                    if (contact.getFullName().toLowerCase().contains(query.toLowerCase())) {
+                        result.add(contact);
                     }
-                } else if (object instanceof Category) {
-                    result.add(object);
-                } else {
-                    throw new IllegalStateException("Unknown object type");
                 }
             }
             resultLiveData.setValue(result);

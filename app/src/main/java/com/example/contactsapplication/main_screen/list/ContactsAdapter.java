@@ -26,7 +26,7 @@ public final class ContactsAdapter extends BaseAdapter<Object, BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if(viewType == CONTACT_TYPE) {
+        if (viewType == CONTACT_TYPE) {
             return new VhContact(view);
         } else if (viewType == CATEGORY_TYPE) {
             return new VhCategory(view);
@@ -37,11 +37,10 @@ public final class ContactsAdapter extends BaseAdapter<Object, BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        if(holder instanceof VhCategory) {
+        if (holder instanceof VhCategory) {
             ((VhCategory) holder).setListener(listener);
-        } else {
-            holder.bind(getItem(position));
         }
+        holder.bind(getItem(position));
     }
 
     @Override
