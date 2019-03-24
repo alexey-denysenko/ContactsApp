@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ContactsApplication</string>
+    <string name="find_friends">Find Friends</string>
 </resources>
