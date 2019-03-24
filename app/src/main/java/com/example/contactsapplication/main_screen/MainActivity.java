@@ -39,8 +39,10 @@ public class MainActivity extends DaggerAppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel.class);
 
+        getSupportActionBar().hide();
         recyclerView = findViewById(R.id.recycler_view);
         progressBar = findViewById(R.id.progress);
+
         initRecyclerView();
         subscribeForUpdates();
     }

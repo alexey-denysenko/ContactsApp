@@ -10,7 +10,6 @@ import com.example.contactsapplication.common.LiveDataFactory;
 import com.example.contactsapplication.main_screen.networking.ContactsNetworkClient;
 import com.example.contactsapplication.main_screen.networking.model.ContactsResponseDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,14 +22,14 @@ import static java.lang.Boolean.TRUE;
 final class MainActivityViewModel extends ViewModel {
 
     @NonNull
-    private final MutableLiveData<List<Object>> adapterSections = LiveDataFactory.newDistinctMutableLiveData(new ArrayList<>());
+    private final MutableLiveData<List<Object>> adapterSections = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<Boolean> isLoading = LiveDataFactory.newDistinctMutableLiveData(FALSE);
 
     @Inject
     MainActivityViewModel(@NonNull ContactsNetworkClient networkClient) {
-        networkClient.loadContacts(new ContactsCallback());
         isLoading.setValue(TRUE);
+        networkClient.loadContacts(new ContactsCallback());
     }
 
     @NonNull
@@ -47,8 +46,8 @@ final class MainActivityViewModel extends ViewModel {
 
         @Override
         public void onSuccess(ContactsResponseDto data) {
-           adapterSections.setValue(ContactsMapper.map(data));
-           isLoading.setValue(FALSE);
+            isLoading.setValue(FALSE);
+            adapterSections.setValue(ContactsMapper.map(data));
         }
 
         @Override

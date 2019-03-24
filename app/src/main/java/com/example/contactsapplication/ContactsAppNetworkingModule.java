@@ -2,39 +2,48 @@ package com.example.contactsapplication;
 
 import android.support.annotation.NonNull;
 
-import com.example.contactsapplication.common.Interceptors;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import java.util.Collections;
-import java.util.Set;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import dagger.multibindings.ElementsIntoSet;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
+import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 @Module
 public interface ContactsAppNetworkingModule {
     @Provides
     @NonNull
-    static OkHttpClient provideOkHttp(@Interceptors @NonNull final Set<Interceptor> interceptors) {
+    static OkHttpClient provideOkHttp() {
         final OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
-        for (Interceptor interceptor : interceptors) {
-            okHttpBuilder.addInterceptor(interceptor);
+        if (BuildConfig.DEBUG) {
+            // must be the last interceptor to catch and log modified requests
+            final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(m -> Timber.tag("NETWORK").d(m));
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okHttpBuilder.addInterceptor(loggingInterceptor);
         }
-        return okHttpBuilder.build();
 
+        return okHttpBuilder.build();
     }
 
     @Provides
-    @ElementsIntoSet
-    @Interceptors
     @NonNull
-    static Set<Interceptor> provideOkHttpInterceptors(@NonNull final HttpLoggingInterceptor httpLoggingInterceptor) {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return Collections.singleton(loggingInterceptor);
+    @Singleton
+    static Converter.Factory provideFactory(@NonNull final Gson gson) {
+        return GsonConverterFactory.create(gson);
+    }
+
+    @Provides
+    @NonNull
+    @Singleton
+    static Gson provideGson() {
+        final GsonBuilder builder = new GsonBuilder();
+        return builder.create();
     }
 }

@@ -96,7 +96,7 @@ public final class LiveDataFactory {
 
         @Override
         public void setValue(final T value) {
-            if (!hasValue && value == null || value.equals(getValue())) {
+            if (!hasValue && value == null || !value.equals(getValue())) {
                 hasValue = true;
                 super.setValue(value);
             }
@@ -113,7 +113,7 @@ public final class LiveDataFactory {
 
         @Override
         public void setValue(final T value) {
-            if (!hasValue && value == null || value.equals(getValue())) {
+            if (!hasValue && value == null || !value.equals(getValue())) {
                 hasValue = true;
                 super.setValue(value);
             }
