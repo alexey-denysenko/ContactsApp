@@ -44,7 +44,7 @@ final class VhContact extends BaseViewHolder<Contact> {
     public void bind(@NonNull final Contact data) {
         statusIcon.setImageResource(STATUS_MAP.get(data.getStatus()));
         fullName.setText(data.getFullName());
-        status.setText(data.getStatus());
+        status.setText(data.getStatusMessage());
         avatar.setImageResource(R.drawable.contacts_list_avatar_male);
     }
 }
