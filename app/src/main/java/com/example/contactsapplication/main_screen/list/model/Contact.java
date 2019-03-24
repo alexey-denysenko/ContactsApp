@@ -13,9 +13,9 @@ public abstract class Contact {
         return new AutoValue_Contact(fullName, status, statusMessage);
     }
     @NonNull
-    abstract String getFullName();
+    public abstract String getFullName();
     @NonNull
-    abstract String getStatus();
+    public abstract String getStatus();
     @NonNull
-    abstract String getStatusMessage();
+    public abstract String getStatusMessage();
 }

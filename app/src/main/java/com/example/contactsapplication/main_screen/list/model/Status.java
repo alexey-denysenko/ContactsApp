@@ -24,4 +24,8 @@ public enum Status {
         this.status = status;
         this.icon = icon;
     }
+
+    public int getIcon(String status) {
+        return icon;
+    }
 }

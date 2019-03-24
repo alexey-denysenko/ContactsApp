@@ -7,10 +7,9 @@ import com.google.auto.value.AutoValue;
 @AutoValue
 public abstract class Category {
 
-
-   abstract boolean isCollapsed();
+   public abstract boolean isCollapsed();
    @NonNull
-   abstract String getName();
+   public abstract String getName();
 
    static Builder builder() {
       return new AutoValue_Category.Builder();
